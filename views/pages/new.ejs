@@ -1,5 +1,22 @@
 <%- include('../partials/head') %> <%- include('../partials/header') %>
 <div class="container">
   <h1>New user</h1>
+  <form
+    action="/new"
+    method="post"
+    class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3"
+  >
+    <label for="username">Add new user</label>
+    <input
+      type="text"
+      id="username"
+      name="username"
+      required
+      class="form-control form-control-dark"
+      placeholder="username..."
+    />
+    <br />
+    <input type="submit" value="Submit" class="btn btn-warning" />
+  </form>
 </div>
 <%- include('../partials/footer') %>
