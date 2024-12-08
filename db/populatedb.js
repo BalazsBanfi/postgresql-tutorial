@@ -1,6 +1,7 @@
 #! /usr/bin/env node
 
 const { Client } = require("pg");
+require("dotenv").config();
 
 const SQL = `
 CREATE TABLE IF NOT EXISTS usernames (
@@ -18,7 +19,11 @@ VALUES
 async function main() {
   console.log("seeding...");
   const client = new Client({
-    connectionString: "postgresql://bally4h:123456@localhost:5432/top_users",
+    host: process.env.PGHOST,
+    port: process.env.PGPORT,
+    user: process.env.PGUSER,
+    password: process.env.PGPASSWORD,
+    database: process.env.PGDATABASE,
   });
   await client.connect();
   await client.query(SQL);

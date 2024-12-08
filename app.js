@@ -1,11 +1,11 @@
-const express = require('express');
+const express = require("express");
 const app = express();
 const userRouter = require("./routes/userRouter");
-app.set('view engine', 'ejs')
+app.set("view engine", "ejs");
 app.use(express.urlencoded({ extended: true }));
 app.use("/", userRouter);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
+  console.log(`Server running on port ${PORT}`);
 });
