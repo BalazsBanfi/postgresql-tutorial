@@ -22,5 +22,11 @@ async function postNewUser(req, res) {
   console.log("username to be saved: ", req.body.username);
 }
 
+async function getDeleteUsers(req, res) {
+  await db.deleteUsers();
+  res.redirect("/");
+  console.log("users deleted");
+}
 
-module.exports = { getUsers, getNewUser, postNewUser };
+
+module.exports = { getUsers, getNewUser, postNewUser, getDeleteUsers };
