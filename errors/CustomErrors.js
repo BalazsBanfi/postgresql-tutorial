@@ -1,5 +1,3 @@
-// errors/CustomNotFoundError.js
-
 class CustomNotFoundError extends Error {
     constructor(message) {
         super(message);

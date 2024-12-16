@@ -1,8 +1,15 @@
 const pool = require('./pool');
 
-const getAllUsernames = async () => {
-  const { rows } = await pool.query("SELECT * FROM usernames");
-  return rows;
+const getAllUsernames = async (search) => {
+  if (search) {
+    const { rows } = await pool.query(`SELECT * FROM usernames WHERE username LIKE '%${search}%' `);
+    return rows;
+  } else {
+    const { rows } = await pool.query("SELECT * FROM usernames");
+    return rows;
+  }
+
+
 }
 
 const insertUsername = async (username) => {

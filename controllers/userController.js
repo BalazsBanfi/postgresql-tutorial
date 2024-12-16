@@ -1,21 +1,22 @@
 const db = require('../db/queries');
 const asyncHandler = require('express-async-handler')
-const { CustomDbError } = require('../errors/CustomNotFoundError');
+const { CustomDbError } = require('../errors/CustomErrors');
 
 
-const getUsers = asyncHandler(async (req, res, next) => {
-  const usernames = await db.getAllUsernames();
+const getUsers = asyncHandler(async (req, res) => {
+  const search = req.query.search || undefined;
+  const usernames = await db.getAllUsernames(search);
   console.log("Usernames: ", usernames);
+  console.log('Query: ', search)
   if (!usernames.length) {
     throw new CustomDbError('db is empty');
-
   }
   res.render("pages/index", {
     users: usernames,
     title: "Users",
   });
-
 })
+
 
 const getNewUser = asyncHandler(async (req, res) => {
   res.render("pages/new", {

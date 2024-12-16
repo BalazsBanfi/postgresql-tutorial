@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
 const userRouter = require("./routes/userRouter");
-const { CustomNotFoundError } = require('./errors/CustomNotFoundError');
+const { CustomNotFoundError } = require('./errors/CustomErrors');
 
 app.set("view engine", "ejs");
 app.use(express.urlencoded({ extended: true }));
