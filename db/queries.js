@@ -1,15 +1,15 @@
 const pool = require('./pool');
 
-async function getAllUsernames() {
+const getAllUsernames = async () => {
   const { rows } = await pool.query("SELECT * FROM usernames");
   return rows;
 }
 
-async function insertUsername(username) {
+const insertUsername = async (username) => {
   await pool.query("INSERT INTO usernames (username) VALUES ($1)", [username]);
 }
 
-async function deleteUsers() {
+const deleteUsers = async () => {
   await pool.query("DELETE FROM usernames");
 }
 

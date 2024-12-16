@@ -1,15 +1,14 @@
 const express = require("express");
 const app = express();
 const userRouter = require("./routes/userRouter");
-const customNotFoundError = require('./errors/CustomNotFoundError');
+const { CustomNotFoundError } = require('./errors/CustomNotFoundError');
 
 app.set("view engine", "ejs");
 app.use(express.urlencoded({ extended: true }));
 app.use("/", userRouter);
 app.use((req, res, next) => {
-  throw new customNotFoundError('Error 404, missing page')
+  throw new CustomNotFoundError('Error 404, missing page')
 })
-
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
@@ -24,6 +23,7 @@ app.use((err, req, res, next) => {
   // res.status(err.statusCode || 500).send(err.message);
   res.status(err.statusCode || 500).render("pages/404", {
     title: "Error",
-    statusCode: err.statusCode
+    statusCode: err.statusCode,
+    message: err.message
   });
 });

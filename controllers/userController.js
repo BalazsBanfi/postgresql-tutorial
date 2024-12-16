@@ -1,32 +1,40 @@
-const db = require("../db/queries");
+const db = require('../db/queries');
+const asyncHandler = require('express-async-handler')
+const { CustomDbError } = require('../errors/CustomNotFoundError');
 
-async function getUsers(req, res) {
+
+const getUsers = asyncHandler(async (req, res, next) => {
   const usernames = await db.getAllUsernames();
   console.log("Usernames: ", usernames);
+  if (!usernames.length) {
+    throw new CustomDbError('db is empty');
+
+  }
   res.render("pages/index", {
     users: usernames,
     title: "Users",
   });
-}
 
-const getNewUser = (req, res) => {
+})
+
+const getNewUser = asyncHandler(async (req, res) => {
   res.render("pages/new", {
     title: "New user",
   });
-};
+})
 
-async function postNewUser(req, res) {
+const postNewUser = asyncHandler(async (req, res) => {
   const { username } = req.body;
   await db.insertUsername(username);
   res.redirect("/");
   console.log("username to be saved: ", req.body.username);
-}
+})
 
-async function getDeleteUsers(req, res) {
+const getDeleteUsers = asyncHandler(async (req, res) => {
   await db.deleteUsers();
   res.redirect("/");
   console.log("users deleted");
-}
+})
 
 
 module.exports = { getUsers, getNewUser, postNewUser, getDeleteUsers };
