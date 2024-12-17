@@ -9,7 +9,7 @@ const getUsers = asyncHandler(async (req, res) => {
   console.log("Usernames: ", usernames);
   console.log('Query: ', search)
   if (!usernames.length) {
-    throw new CustomDbError('db is empty');
+    throw new CustomDbError('No users in database');
   }
   res.render("pages/index", {
     users: usernames,
